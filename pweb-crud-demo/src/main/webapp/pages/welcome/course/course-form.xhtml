@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                       xmlns:h="http://java.sun.com/jsf/html"
+                       xmlns:f="http://java.sun.com/jsf/core"
+                       xmlns:ui="http://java.sun.com/jsf/facelets"
+                       xmlns:p="http://primefaces.org/ui">
+
+<p:dialog header="Curso" showEffect="fade" modal="true"
+          widgetVar="manageCourseDialog" responsive="true">
+    <p:outputPanel id="manage-course-content" class="ui-fluid">
+        <p:outputPanel rendered="#{not empty manageCourseBean.selectedCourse}">
+            <p:panelGrid layout="grid" columns="1">
+                <h:panelGroup>
+                    <div class="p-field">
+                        <p:outputLabel for="@next">Curso</p:outputLabel>
+                        <p:inputText id="course_name" required="true"
+                                     value="#{manageCourseBean.selectedCourse.course_name}" />
+                        <p:message for="@previous" ></p:message>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="@next">Fecha de inicio</p:outputLabel>
+                        <p:calendar id="begin_date" required="true"
+                                     value="#{manageCourseBean.selectedCourse.begin_date}" />
+                        <p:message for="@previous"></p:message>
+                    </div>
+                    <div class="p-field">
+                        <p:outputLabel for="@next">Fecha de fin</p:outputLabel>
+                        <p:calendar id="end_date" required="true"
+                                     value="#{manageCourseBean.selectedCourse.end_date}" />
+                        <p:message for="@previous"></p:message>
+                    </div>
+
+
+                </h:panelGroup>
+
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:outputPanel>
+
+    <f:facet name="footer">
+        <p:commandButton value="Salvar" icon="pi pi-check"
+                         actionListener="#{manageCourseBean.saveCourse}"
+                         update="manage-course-content" process="manage-course-content @this" />
+        <p:commandButton value="Cancelar" icon="pi pi-times"
+                         onclick="PF('manageCourseDialog').hide()" class="ui-button-secondary" />
+    </f:facet>
+</p:dialog>
+</ui:composition>
